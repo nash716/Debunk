@@ -77,7 +77,9 @@ ProxyRequest.prototype.pass = function() {
 	}, function(next, err, pResponse) {
 		var proxyResponse = new ProxyResponse(pResponse, that.res);
 
-		proxyResponse.emit('pass');
+		if (!utils.config('breakRule').afterResponses) {
+			proxyResponse.emit('pass');
+		}
 	
 		proxyResponses[proxyResponse.id] = proxyResponse;
 

@@ -9,8 +9,10 @@ module.exports = exports = function() {
 
 		var proxyRequest = new ProxyRequest(req, res);
 
-		proxyRequest.emit('pass');
-	
+		if (!utils.config('breakRule').beforeRequests) {
+			proxyRequest.emit('pass');
+		}
+		
 		proxyRequests[proxyRequest.id] = proxyRequest;
 
 		view.createElement(proxyRequest.id, parsedURL);
