@@ -10,11 +10,67 @@ var storage = function(key, value) {
 };
 
 var defaults = {
-	port: 8888
+	port: {
+		type: 'number',
+		value: 8888
+	},
+	breakRule: {
+		type: 'object',
+		value: {
+			beforeRequests: false,
+			afterResponses: false
+		}
+	}
 };
 
-var config = function(key) {
-	return window.localStorage[key] || defaults[key];
+var config = function(key, value) {
+	if (value !== undefined) {
+		saveConfig(key, value);
+	} else {
+		return getConfig(key);
+	}
+};
+
+var saveConfig = function(key, value) {
+	switch(defaults[key].type) {
+	case 'number':
+		value = '' + value;
+		break;
+	case 'boolean':
+		value = value == true ? 'true' : 'false';
+		break;
+	case 'object':
+		value = JSON.stringify(value);
+		break;
+	default:
+		break;
+	}
+
+	window.localStorage[key] = value;
+};
+
+var getConfig = function(key) {
+	var val = window.localStorage[key];
+
+	if (val) {
+		switch(defaults[key].type) {
+		case 'number':
+			val = parseInt(val, 10);
+			break;
+		case 'boolean':
+			val = val == 'true' ? true : false;
+			break;
+		case 'object':
+			val = JSON.parse(val);
+			break;
+		default:
+			break;
+		}
+	} else {
+		val = defaults[key].value;
+	}
+
+	return val;
 };
 
 var err = function(str) {
