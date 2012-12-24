@@ -1,0 +1,7 @@
+{
+	"name": "Debunk",
+	"main": "index.html",
+	"window": {
+		"toolbar": false
+	}
+}

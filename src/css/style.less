@@ -1,0 +1,49 @@
+@main-blue: #0072c6;
+
+body {
+	font-family: monospace;
+	font-size: 9pt;
+
+	> * {
+		position: fixed;
+	}
+}
+
+.ib {
+	display: inline-block;
+}
+
+#controls {
+	top: 0;
+	left: 0;
+	height: 20px;
+	width: 100%;
+
+	background-color: @main-blue;
+}
+
+#list {
+	top: 20px;
+	left: 0;
+	height: 100%;
+	width: 30%;
+
+	overflow-y: auto;
+
+	#item {
+		&:hover {
+			background-color: #336699;
+		}
+	}
+}
+
+#fields {
+	top: 20px;
+	left: 30%;
+	height: 100%;
+	width: 70%;
+
+	textarea {
+		width: 100%;
+	}
+}

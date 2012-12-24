@@ -1,0 +1,5 @@
+node_modules/
+*.sublime-*
+server/
+node-webkit.app
+.DS_Store
