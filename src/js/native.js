@@ -25,15 +25,24 @@ var native = function() {
 		(function generateBasicRules(parent) {
 			var beforeRequests = new gui.MenuItem({
 				label: 'Before Requests',
-				type: 'checkbox'
+				type: 'checkbox',
+				click: basicRulesClicked
 			});
 			var afterResponses = new gui.MenuItem({
 				label: 'After Responses',
-				type: 'checkbox'
+				type: 'checkbox',
+				click: basicRulesClicked
 			});
 
 			parent.append(beforeRequests);
 			parent.append(afterResponses);
+
+			function basicRulesClicked() {
+				var currentSettings = utils.config('basicRule');
+				currentSettings.beforeRequests = beforeRequests.checked;
+				currentSettings.afterResponses = afterResponses.checked;
+				utils.config('basicRule', currentSettings);
+			}
 
 		})(basicRules);
 
