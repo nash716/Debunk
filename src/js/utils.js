@@ -14,7 +14,7 @@ var defaults = {
 		type: 'number',
 		value: 8888
 	},
-	breakRule: {
+	basicRule: {
 		type: 'object',
 		value: {
 			beforeRequests: false,
