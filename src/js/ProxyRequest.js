@@ -92,7 +92,7 @@ ProxyRequest.prototype.pass = function() {
 
 		view.relate(that.id, proxyResponse.id);
 
-		this.status = ProxyStatus.PASSED;
+		that.status = ProxyStatus.PASSED;
 
 	}, utils.err('Error in creating the request.'));
 };

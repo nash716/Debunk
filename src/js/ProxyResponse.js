@@ -46,6 +46,8 @@ ProxyResponse.prototype.pass = function() {
 		that.res.end(data);
 	});
 
+	this.status = ProxyStatus.PASSED;
+
 };
 
 ProxyResponse.prototype.drop = function() {
