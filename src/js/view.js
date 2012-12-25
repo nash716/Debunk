@@ -26,6 +26,8 @@ var selectors = {
 function init() { // [TODO] Drop 時の処理
 	$(selectors.req.PASS).click(reqPass);
 	$(selectors.res.PASS).click(resPass);
+	$(selectors.req.DROP).click(reqDrop);
+	$(selectors.res.DROP).click(resDrop);
 }
 
 function reqPass() {
@@ -50,6 +52,18 @@ function resPass() {
 	}, function(next) {
 		proxyResponses[resId].emit('pass');
 	}, utils.err('Error in saving the request.'));
+}
+
+function reqDrop() {
+	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.REQUEST_ID), 10);
+
+	proxyRequests[reqId].emit('drop');
+}
+
+function resDrop() {
+	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID), 10);
+
+	proxyResponses[resId].emit('drop');
 }
 
 function listClicked() {

@@ -1,7 +1,9 @@
 var store = require('./store'),
-	utils = require('./utils');
+	utils = require('./utils'),
+	ProxyStatus = require('./ProxyStatus');
 
 var ProxyResponse = function(pRes, res) {
+	this.status = ProxyStatus.WAITING;
 	this.isPassReady = false;
 	this.passCalled = false;
 
@@ -11,6 +13,7 @@ var ProxyResponse = function(pRes, res) {
 	pRes.on('end', utils.apply(this, this.passReady));
 
 	this.on('pass', this.pass);
+	this.on('drop', this.drop);
 
 	this.id = store.res(pRes, utils.empty);
 
@@ -32,6 +35,10 @@ ProxyResponse.prototype.pass = function() {
 		return;
 	}
 
+	if (this.status == ProxyStatus.DROPPED) {
+		return;
+	}
+
 	var that = this;
 
 	store.stream('res/res' + this.id, function(err, data) {
@@ -39,6 +46,16 @@ ProxyResponse.prototype.pass = function() {
 		that.res.end(data);
 	});
 
+};
+
+ProxyResponse.prototype.drop = function() {
+	if (this.status == ProxyStatus.PASSED) {
+		return;
+	}
+
+	this.res.end();
+
+	this.status = ProxyStatus.DROPPED;
 };
 
 module.exports = exports = ProxyResponse;

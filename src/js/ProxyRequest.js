@@ -4,7 +4,8 @@ var store = require('./store'),
 	ProxyResponse = require('./ProxyResponse'),
 	http = require('http'),
 	https = require('https'),
-	view = require('./view');
+	view = require('./view'),
+	ProxyStatus = require('./ProxyStatus');
 
 var mod = {
 	'http:': http,
@@ -12,6 +13,7 @@ var mod = {
 };
 
 var ProxyRequest = function(req, res) {
+	this.status = ProxyStatus.WAITING;
 	this.isPassReady = true;
 	this.passCalled = false;
 
@@ -24,6 +26,7 @@ var ProxyRequest = function(req, res) {
 	}
 
 	this.on('pass', this.pass);
+	this.on('drop', this.drop);
 
 	this.id = store.req(req, utils.empty);
 };
@@ -41,6 +44,10 @@ ProxyRequest.prototype.passReady = function(that) {
 ProxyRequest.prototype.pass = function() {
 	if (!this.isPassReady) {
 		this.passCalled = true;
+		return;
+	}
+
+	if (this.status == ProxyStatus.DROPPED) {
 		return;
 	}
 
@@ -85,7 +92,19 @@ ProxyRequest.prototype.pass = function() {
 
 		view.relate(that.id, proxyResponse.id);
 
+		this.status = ProxyStatus.PASSED;
+
 	}, utils.err('Error in creating the request.'));
+};
+
+ProxyRequest.prototype.drop = function() {
+	if (this.status == ProxyStatus.PASSED) {
+		return;
+	}
+
+	this.res.end();
+
+	this.status = ProxyStatus.DROPPED;
 };
 
 function strToRequests(str) {
