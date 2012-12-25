@@ -54,7 +54,7 @@ function resPass() {
 		store.stream('res/head' + resId, $(selectors.res.HEADERS).val(), next);
 	}, function(next) {
 		proxyResponses[resId].emit('pass');
-	}, utils.err('Error in saving the request.'));
+	}, utils.err('Error in saving the response.'));
 
 	resButtonState(false);
 }
