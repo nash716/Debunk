@@ -3,6 +3,7 @@ onload = main;
 function main() {
 	global.proxyRequests = [ ];
 	global.proxyResponses = [ ];
+	global.$ = window.$;
 
 	mainWin = require('nw.gui').Window.get();
 

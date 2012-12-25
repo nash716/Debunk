@@ -1,5 +1,4 @@
-var $ = window.$,
-	store = require('./store'),
+var store = require('./store'),
 	execute = require('./execute'),
 	utils = require('./utils');
 
