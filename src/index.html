@@ -16,7 +16,7 @@
 				<div class="container" id="controls">
 					<a class="brand">Debunk</a>
 					<ul class="nav">
-						<li><a id="clear">クリア</a></li>
+						<li><a href="#" id="clear">クリア</a></li>
 					</ul>
 		    	</div>
 		    </div>
@@ -28,28 +28,52 @@
 				</div>
 				<div class="span8" id="fields">
 					<div id="request">
-						Request
-						<div class="btn-group" id="reqProxy">
-							<button class="btn btn-mini btn-primary" id="reqForward">Forward</button>
-							<button class="btn btn-mini btn-danger" id="reqDrop">Drop</button>
+						<h3>Request</h3>
+						<div class="right">
+							View in 
+							<div class="btn-group">
+								<button class="btn btn-mini">Raw</button>
+								<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">Table</a></li>
+								</ul>
+							</div>
+							<div class="btn-group" id="reqProxy">
+								<button class="btn btn-mini btn-primary" id="reqForward">Forward</button>
+								<button class="btn btn-mini btn-danger" id="reqDrop">Drop</button>
+							</div>
 						</div>
 						<br />
-						Headers:
+						Headers:<br />
 						<textarea id="reqHeader"></textarea><br />
-						Body:
+						Body:<br />
 						<textarea id="reqBody"></textarea>
 					</div>
 					<div class="separator"></div>
 					<div id="response">
-						Response
-						<div class="btn-group" id="resProxy">
-							<button class="btn btn-mini btn-primary" id="resForward">Forward</button>
-							<button class="btn btn-mini btn-danger" id="resDrop">Drop</button>
+						<h3>Response</h3>
+						<div class="right">
+							View in 
+							<div class="btn-group">
+								<button class="btn btn-mini">Raw</button>
+								<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">Table</a></li>
+								</ul>
+							</div>
+							<div class="btn-group" id="resProxy">
+								<button class="btn btn-mini btn-primary" id="resForward">Forward</button>
+								<button class="btn btn-mini btn-danger" id="resDrop">Drop</button>
+							</div>
 						</div>
 						<br />
-						Headers:
+						Headers:<br />
 						<textarea id="resHeader"></textarea><br />
-						Body:
+						Body:<br />
 						<textarea id="resBody"></textarea>
 					</div>
 				</div>

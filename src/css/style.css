@@ -8,13 +8,30 @@ body {
 #list {
   overflow-y: auto;
 }
+#list > .item:hover {
+  background-color: #0072c6;
+  color: white;
+}
 #fields {
   overflow-y: auto;
+}
+#fields textarea {
+  width: 90%;
 }
 #controls {
   font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
 }
 .separator {
   border: solid 1px #cccccc;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.right {
+  float: right;
+}
+#request > h3,
+#response > h3 {
+  display: inline-block;
+  margin-top: 0;
+  font-size: 18px;
 }

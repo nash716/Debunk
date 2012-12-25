@@ -2,8 +2,6 @@ var fs = require('fs'),
 	utils = require('./utils');
 
 module.exports = exports = function() {
-	$('#list, #fields').css('height', $(window).height() - 45 + 'px');
-
 	try {
 		fs.mkdirSync('res');
 		fs.mkdirSync('req');

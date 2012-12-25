@@ -14,10 +14,20 @@ body {
 
 #list {
 	overflow-y: auto;
+
+	&> .item {
+		&:hover {
+			background-color: @main-blue;
+			color: white;
+		}
+	}
 }
 
 #fields {
 	overflow-y: auto;
+	textarea {
+		width: 90%;
+	}
 }
 
 #controls {
@@ -26,5 +36,19 @@ body {
 
 .separator {
 	border: solid 1px @main-gray;
-	margin-bottom: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.right {
+	float: right;
+}
+
+#request,
+#response {
+	&> h3 {
+		display: inline-block;
+		margin-top: 0;
+		font-size: 18px;
+	}
 }

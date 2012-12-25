@@ -81,7 +81,7 @@ function resHeader(err, data) {
 function createElement(reqId, parsedURL) {
 	$('<div>')
 		.attr(selectors.req.REQUEST_ID, reqId)
-		.attr('id','item')
+		.addClass('item')
 		.text(parsedURL.pathname)
 		.click(listClicked)
 		.appendTo($('#list'));

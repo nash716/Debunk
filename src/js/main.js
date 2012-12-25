@@ -1,4 +1,5 @@
 onload = main;
+onresize = resize;
 
 function main() {
 	global.proxyRequests = [ ];
@@ -12,9 +13,14 @@ function main() {
 	require('./js/proxy')();
 
 	native();
+	resize();
 
 	mainWin.on('close', function() {
 		require('./js/finalize')();
 		this.close(true);
 	});
+}
+
+function resize() {
+	$('#list, #fields').css('height', $(window).height() - 45 + 'px');
 }
