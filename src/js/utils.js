@@ -37,7 +37,7 @@ var saveConfig = function(key, value) {
 		value = '' + value;
 		break;
 	case 'boolean':
-		value = value == true ? 'true' : 'false';
+		value = value === true ? 'true' : 'false';
 		break;
 	case 'object':
 		value = JSON.stringify(value);
