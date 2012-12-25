@@ -31,15 +31,10 @@
 						<h3>Request</h3>
 						<div class="right">
 							View in 
-							<div class="btn-group">
-								<button class="btn btn-mini">Raw</button>
-								<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Table</a></li>
-								</ul>
-							</div>
+							<select id="reqView" class="input-small">
+								<option value="raw">Raw</option>
+								<option value="table">Table</option>
+							</select>
 							<div class="btn-group" id="reqProxy">
 								<button class="btn btn-mini btn-primary" id="reqForward">Forward</button>
 								<button class="btn btn-mini btn-danger" id="reqDrop">Drop</button>
@@ -56,15 +51,10 @@
 						<h3>Response</h3>
 						<div class="right">
 							View in 
-							<div class="btn-group">
-								<button class="btn btn-mini">Raw</button>
-								<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Table</a></li>
-								</ul>
-							</div>
+							<select id="resView" class="input-small">
+								<option value="raw">Raw</option>
+								<option value="table">Table</option>
+							</select>
 							<div class="btn-group" id="resProxy">
 								<button class="btn btn-mini btn-primary" id="resForward">Forward</button>
 								<button class="btn btn-mini btn-danger" id="resDrop">Drop</button>
