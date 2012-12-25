@@ -5,7 +5,7 @@
 		<title>Debunk</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/style.css">
-		<script src="js/zepto.js"></script>
+		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/native.js"></script>
 		<script src="js/main.js"></script>
@@ -28,7 +28,10 @@
 				</div>
 				<div class="span8" id="fields">
 					<div id="request">
-						<a href="#" id="reqProxy">Pass Request</a>
+						<div class="btn-group">
+							<button class="btn btn-mini btn-primary" id="reqForward">Forward</button>
+							<button class="btn btn-mini btn-danger" id="reqDrop">Drop</button>
+						</div>
 						Request Headers:
 						<textarea id="reqHeader"></textarea>
 						Request Body:
