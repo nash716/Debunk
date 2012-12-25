@@ -28,20 +28,28 @@
 				</div>
 				<div class="span8" id="fields">
 					<div id="request">
-						<div class="btn-group">
+						Request
+						<div class="btn-group" id="reqProxy">
 							<button class="btn btn-mini btn-primary" id="reqForward">Forward</button>
 							<button class="btn btn-mini btn-danger" id="reqDrop">Drop</button>
 						</div>
-						Request Headers:
-						<textarea id="reqHeader"></textarea>
-						Request Body:
+						<br />
+						Headers:
+						<textarea id="reqHeader"></textarea><br />
+						Body:
 						<textarea id="reqBody"></textarea>
 					</div>
+					<div class="separator"></div>
 					<div id="response">
-						<a href="#" id="resProxy">Pass Response</a>
-						Response Headers:
-						<textarea id="resHeader"></textarea>
-						Response Body:
+						Response
+						<div class="btn-group" id="resProxy">
+							<button class="btn btn-mini btn-primary" id="resForward">Forward</button>
+							<button class="btn btn-mini btn-danger" id="resDrop">Drop</button>
+						</div>
+						<br />
+						Headers:
+						<textarea id="resHeader"></textarea><br />
+						Body:
 						<textarea id="resBody"></textarea>
 					</div>
 				</div>

@@ -1,5 +1,5 @@
 @main-blue: #0072C6;
-@main-gray: #EEE;
+@main-gray: #CCC;
 
 @controls-height: 30px;
 
@@ -8,60 +8,23 @@ html {
 }
 
 body {
-//	font-family: monospace;
 	font-size: 9pt;
 	-webkit-user-select: none;
+}
 
-/*	> * {
-		position: fixed;
-	}*/
+#list {
+	overflow-y: auto;
 }
-/*
-.ib {
-	display: inline-block;
+
+#fields {
+	overflow-y: auto;
 }
-*/
+
 #controls {
 	font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
 }
 
-#request {
-	position: absolute;
-	top: 45px;
-	width: 100%;
-	height: 50%;
+.separator {
+	border: solid 1px @main-gray;
+	margin-bottom: 5px;
 }
-
-#response {
-	position: absolute;
-	top: 50%;
-	width: 100%;
-	height: 50%;
-}
-/*
-#list {
-	top: @controls-height;
-	left: 0;
-	height: 100%;
-	width: 30%;
-
-	overflow-y: auto;
-
-	#item {
-		&:hover {
-			background-color: #336699;
-		}
-	}
-}
-
-#fields {
-	top: @controls-height;
-	left: 30%;
-	height: 100%;
-	width: 70%;
-
-	textarea {
-		width: 100%;
-	}
-}
-*/

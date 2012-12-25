@@ -4,14 +4,18 @@ var store = require('./store'),
 
 var selectors = {
 	req: {
-		PASS_BUTTON: '#reqProxy',
+		BUTTONS: '#reqProxy',
+		PASS: '#reqForward',
+		DROP: '#reqDrop',
 		HEADERS: '#reqHeader',
 		BODY: '#reqBody',
 		PARENT: '#request',
 		REQUEST_ID: 'data-req-id'
 	},
 	res: {
-		PASS_BUTTON: '#resProxy',
+		BUTTONS: '#resProxy',
+		PASS: '#resForward',
+		DROP: '#resDrop',
 		HEADERS: '#resHeader',
 		BODY: '#resBody',
 		PARENT: '#response',
@@ -19,13 +23,13 @@ var selectors = {
 	}
 };
 
-function init() {
-	$('#reqProxy').click(reqPass);
-	$('#resProxy').click(resPass);
+function init() { // [TODO] Drop 時の処理
+	$(selectors.req.PASS).click(reqPass);
+	$(selectors.res.PASS).click(resPass);
 }
 
 function reqPass() {
-	var reqId = parseInt($(this).parent(selectors.req.PARENT).attr(selectors.req.REQUEST_ID), 10);
+	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.REQUEST_ID), 10);
 
 	execute(function(next) {
 		store.stream('req/req' + reqId, $(selectors.req.BODY).val(), next);
@@ -37,7 +41,7 @@ function reqPass() {
 }
 
 function resPass() {
-	var resId = parseInt($(this).parent(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID), 10);
+	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID), 10);
 
 	execute(function(next) {
 		store.stream('res/res' + resId, $(selectors.res.BODY).val(), next);
