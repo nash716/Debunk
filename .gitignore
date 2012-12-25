@@ -3,3 +3,5 @@ node_modules/
 server/
 node-webkit.app
 .DS_Store
+src/req/
+src/res/
