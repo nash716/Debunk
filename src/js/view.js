@@ -2,7 +2,7 @@ var store = require('./store'),
 	execute = require('./execute'),
 	utils = require('./utils'),
 	ProxyStatus = require('./ProxyStatus');
-
+// [TODO] req*** 関数は Request オブジェクトに、res*** 関数は Response オブジェクトにまとめる
 var selectors = {
 	req: {
 		BUTTONS: '#reqProxy',
@@ -11,7 +11,9 @@ var selectors = {
 		HEADERS: '#reqHeader',
 		BODY: '#reqBody',
 		PARENT: '#request',
-		REQUEST_ID: 'data-req-id'
+		REQUEST_ID: 'data-req-id',
+		DISPLAY_TYPE: '#reqView',
+		INNER: '#req-inner'
 	},
 	res: {
 		BUTTONS: '#resProxy',
@@ -20,15 +22,55 @@ var selectors = {
 		HEADERS: '#resHeader',
 		BODY: '#resBody',
 		PARENT: '#response',
-		RESPONSE_ID: 'data-res-id'
+		RESPONSE_ID: 'data-res-id',
+		DISPLAY_TYPE: '#resView',
+		INNER: '#res-inner'
 	}
 };
 
-function init() { // [TODO] Drop 時の処理
+var display = {
+	req: {
+		raw: $('<div>').attr('id', selectors.req.INNER.substr(1)) // '#hoge' を 'hoge' に
+			.append($('<span>').text('Headers:'))
+			.append($('<br />'))
+			.append($('<textarea>').attr('id', selectors.req.HEADERS.substr(1)))
+			.append($('<br />'))
+			.append($('<span>').text('Body:'))
+			.append($('<br />'))
+			.append($('<textarea>').attr('id', selectors.req.BODY.substr(1))),
+		table: $('<div>').attr('id', selectors.req.INNER.substr(1))
+			.append($('<span>').text('Headers:'))
+			.append(createTable().attr('id', selectors.req.HEADERS.substr(1)))
+			.append($('<span>').text('Body:'))
+			.append($('<br />'))
+			.append($('<textarea>').attr('id', selectors.req.BODY.substr(1)))
+	},
+	res: {
+		raw: $('<div>').attr('id', selectors.res.INNER.substr(1))
+			.append($('<span>').text('Headers:'))
+			.append($('<br />'))
+			.append($('<textarea>').attr('id', selectors.res.HEADERS.substr(1)))
+			.append($('<br />'))
+			.append($('<span>').text('Body:'))
+			.append($('<br />'))
+			.append($('<textarea>').attr('id', selectors.res.BODY.substr(1))),
+		table: $('<div>').attr('id', selectors.res.INNER.substr(1))
+			.append($('<span>').text('Headers:'))
+			.append(createTable().attr('id', selectors.res.HEADERS.substr(1)))
+			.append($('<span>').text('Body:'))
+			.append($('<br />'))
+			.append($('<textarea>').attr('id', selectors.res.BODY.substr(1)))
+	}
+}
+
+function init() {
 	$(selectors.req.PASS).click(reqPass);
 	$(selectors.res.PASS).click(resPass);
 	$(selectors.req.DROP).click(reqDrop);
 	$(selectors.res.DROP).click(resDrop);
+
+	$(selectors.req.DISPLAY_TYPE).change(reqDisplay);
+	$(selectors.res.DISPLAY_TYPE).change(resDisplay);
 }
 
 function reqPass() {
@@ -78,30 +120,50 @@ function resDrop() {
 function listClicked() {
 	var reqId = parseInt($(this).attr(selectors.req.REQUEST_ID), 10);
 	$(selectors.req.PARENT).attr(selectors.req.REQUEST_ID, reqId);
-	store.req(reqId, reqBody, reqHeader);
+	reqDisplay();
 
 	var resId = parseInt($(this).attr(selectors.res.RESPONSE_ID), 10);
 	$(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID, resId);
-	store.res(resId, resBody, resHeader);
+	resDisplay();
 
 	reqButtonState(proxyRequests[reqId].status === ProxyStatus.WAITING);
 	resButtonState(proxyResponses[resId] && proxyResponses[resId].status === ProxyStatus.WAITING);
 }
 
-function reqBody(err, data) {
+function reqRawBody(err, data) {
 	$(selectors.req.BODY).val(data);
 }
 
-function reqHeader(err, data) {
+function reqRawHeader(err, data) {
 	$(selectors.req.HEADERS).val(data);
 }
 
-function resBody(err, data) {
+function reqTableHeader(err, data) {
+	var tbody = $(selectors.req.HEADERS);
+
+	var headers = JSON.parse(data).headers;
+
+	for (var key in headers) {
+		tbody.append(createTableRow(key, headers[key]));
+	}
+}
+
+function resRawBody(err, data) {
 	$(selectors.res.BODY).val(data);
 }
 
-function resHeader(err, data) {
+function resRawHeader(err, data) {
 	$(selectors.res.HEADERS).val(data);
+}
+
+function resTableHeader(err, data) {
+	var tbody = $(selectors.res.HEADERS);
+
+	var headers = JSON.parse(data).headers;
+
+	for (var key in headers) {
+		tbody.append(createTableRow(key, headers[key]));
+	}
 }
 
 function reqButtonState(enabled) {
@@ -124,6 +186,39 @@ function resButtonState(enabled) {
 	}
 }
 
+function reqDisplay() {
+	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.REQUEST_ID), 10);
+
+	$(selectors.req.INNER).remove();
+
+	switch($(selectors.req.DISPLAY_TYPE).val()) {
+	case 'raw':
+		$(selectors.req.PARENT).append(display.req.raw.clone());
+		store.req(reqId, reqRawBody, reqRawHeader);
+		break;
+	case 'table':
+		$(selectors.req.PARENT).append(display.req.table.clone());
+		store.req(reqId, reqRawBody, reqTableHeader);
+		break;
+	}
+}
+
+function resDisplay() {
+	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID), 10);
+
+	$(selectors.res.INNER).remove();
+
+	switch($(selectors.res.DISPLAY_TYPE).val()) {
+	case 'raw':
+		$(selectors.res.PARENT).append(display.res.raw.clone());
+		store.req(resId, resRawBody, resRawHeader);
+		break;
+	case 'table':
+		$(selectors.res.PARENT).append(display.res.table.clone());
+		store.res(resId, resRawBody, resTableHeader);
+		break;
+	}
+}
 
 function createElement(reqId, parsedURL) {
 	$('<div>')
@@ -137,6 +232,51 @@ function createElement(reqId, parsedURL) {
 function relate(reqId, resId) {
 	$('div[' + selectors.req.REQUEST_ID + '="' + reqId + '"]')
 		.attr(selectors.res.RESPONSE_ID, resId);
+}
+
+function createTable(title1, title2) {
+	var table = $('<table>').addClass('table table-condensed');
+
+		var thead = $('<thead>'),
+			tbody = $('<tbody>');
+
+			var tr = $('<tr>');
+
+				var th1 = $('<th>').text(title1)
+									.css('text-align', 'center');
+				var th2 = $('<th>').text(title2)
+									.css('text-align', 'center');
+
+			tr.append(th1)
+				.append(th2);
+
+		thead.append(tr);
+
+	table.append(thead)
+		.append(tbody);
+
+	return table;
+}
+
+function createTableRow(key, value, isCenter) {
+	var tr = $('<tr>');
+
+	var td1 = $('<td>').text(key).css('white-space', 'nowrap');
+	
+	if (isCenter) {
+		td1.css('text-align', 'center');
+	}
+	
+	var td2 = $('<td>').text(value);
+	
+	if (isCenter) {
+		td2.css('text-align', 'center');
+	}
+
+	tr.append(td1)
+		.append(td2);
+
+	return tr;
 }
 
 module.exports = exports = {
