@@ -88,7 +88,7 @@ ProxyRequest.prototype.pass = function() {
 			proxyResponse.emit('pass');
 		}
 	
-		proxyResponses[proxyResponse.id] = proxyResponse;
+		proxyObjects.res[proxyResponse.id] = proxyResponse;
 
 		view.relate(that.id, proxyResponse.id);
 

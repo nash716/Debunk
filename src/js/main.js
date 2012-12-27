@@ -2,8 +2,10 @@ onload = main;
 onresize = resize;
 
 function main() {
-	global.proxyRequests = [ ];
-	global.proxyResponses = [ ];
+	global.proxyObjects = {
+		req: [ ],
+		res: [ ]
+	};
 	global.$ = window.$;
 
 	mainWin = require('nw.gui').Window.get();

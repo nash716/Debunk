@@ -13,7 +13,7 @@ module.exports = exports = function() {
 			proxyRequest.emit('pass');
 		}
 
-		proxyRequests[proxyRequest.id] = proxyRequest;
+		proxyObjects.req[proxyRequest.id] = proxyRequest;
 
 		view.createElement(proxyRequest.id, parsedURL);
 
