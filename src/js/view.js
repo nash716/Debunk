@@ -11,7 +11,7 @@ var selectors = {
 		HEADERS: '#reqHeader',
 		BODY: '#reqBody',
 		PARENT: '#request',
-		REQUEST_ID: 'data-req-id',
+		ID: 'data-req-id',
 		DISPLAY_TYPE: '#reqView',
 		INNER: '#req-inner'
 	},
@@ -22,7 +22,7 @@ var selectors = {
 		HEADERS: '#resHeader',
 		BODY: '#resBody',
 		PARENT: '#response',
-		RESPONSE_ID: 'data-res-id',
+		ID: 'data-res-id',
 		DISPLAY_TYPE: '#resView',
 		INNER: '#res-inner'
 	}
@@ -74,7 +74,7 @@ function init() {
 }
 
 function reqPass() {
-	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.REQUEST_ID), 10);
+	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.ID), 10);
 
 	if (!(reqId > 0)) return;
 
@@ -90,7 +90,7 @@ function reqPass() {
 }
 
 function resPass() {
-	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID), 10);
+	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.ID), 10);
 
 	if (!(resId > 0)) return;
 
@@ -106,7 +106,7 @@ function resPass() {
 }
 
 function reqDrop() {
-	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.REQUEST_ID), 10);
+	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.ID), 10);
 
 	if (!(reqId > 0)) return;
 
@@ -116,7 +116,7 @@ function reqDrop() {
 }
 
 function resDrop() {
-	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID), 10);
+	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.ID), 10);
 
 	if (!(resId > 0)) return;
 
@@ -126,12 +126,12 @@ function resDrop() {
 }
 
 function listClicked() {
-	var reqId = parseInt($(this).attr(selectors.req.REQUEST_ID), 10);
-	$(selectors.req.PARENT).attr(selectors.req.REQUEST_ID, reqId);
+	var reqId = parseInt($(this).attr(selectors.req.ID), 10);
+	$(selectors.req.PARENT).attr(selectors.req.ID, reqId);
 	reqDisplay();
 
-	var resId = parseInt($(this).attr(selectors.res.RESPONSE_ID), 10);
-	$(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID, resId);
+	var resId = parseInt($(this).attr(selectors.res.ID), 10);
+	$(selectors.res.PARENT).attr(selectors.res.ID, resId);
 	resDisplay();
 
 	reqButtonState(proxyRequests[reqId].status === ProxyStatus.WAITING);
@@ -195,7 +195,7 @@ function resButtonState(enabled) {
 }
 
 function reqDisplay() {
-	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.REQUEST_ID), 10);
+	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.ID), 10);
 
 	if (!(reqId > 0)) return;
 
@@ -214,7 +214,7 @@ function reqDisplay() {
 }
 
 function resDisplay() {
-	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID), 10);
+	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.ID), 10);
 
 	if (!(resId > 0)) return;
 
@@ -234,7 +234,7 @@ function resDisplay() {
 
 function createElement(reqId, parsedURL) {
 	$('<div>')
-		.attr(selectors.req.REQUEST_ID, reqId)
+		.attr(selectors.req.ID, reqId)
 		.addClass('item')
 		.text(parsedURL.pathname)
 		.click(listClicked)
@@ -242,8 +242,8 @@ function createElement(reqId, parsedURL) {
 }
 
 function relate(reqId, resId) {
-	$('div[' + selectors.req.REQUEST_ID + '="' + reqId + '"]')
-		.attr(selectors.res.RESPONSE_ID, resId);
+	$('div[' + selectors.req.ID + '="' + reqId + '"]')
+		.attr(selectors.res.ID, resId);
 }
 
 function createTable(title1, title2) {
