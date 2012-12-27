@@ -76,6 +76,8 @@ function init() {
 function reqPass() {
 	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.REQUEST_ID), 10);
 
+	if (!(reqId > 0)) return;
+
 	execute(function(next) {
 		store.stream('req/req' + reqId, $(selectors.req.BODY).val(), next);
 	}, function(next) {
@@ -89,6 +91,8 @@ function reqPass() {
 
 function resPass() {
 	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID), 10);
+
+	if (!(resId > 0)) return;
 
 	execute(function(next) {
 		store.stream('res/res' + resId, $(selectors.res.BODY).val(), next);
@@ -104,6 +108,8 @@ function resPass() {
 function reqDrop() {
 	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.REQUEST_ID), 10);
 
+	if (!(reqId > 0)) return;
+
 	proxyRequests[reqId].emit('drop');
 
 	reqButtonState(false);
@@ -111,6 +117,8 @@ function reqDrop() {
 
 function resDrop() {
 	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID), 10);
+
+	if (!(resId > 0)) return;
 
 	proxyResponses[resId].emit('drop');
 
@@ -189,6 +197,8 @@ function resButtonState(enabled) {
 function reqDisplay() {
 	var reqId = parseInt($(selectors.req.PARENT).attr(selectors.req.REQUEST_ID), 10);
 
+	if (!(reqId > 0)) return;
+
 	$(selectors.req.INNER).remove();
 
 	switch($(selectors.req.DISPLAY_TYPE).val()) {
@@ -205,6 +215,8 @@ function reqDisplay() {
 
 function resDisplay() {
 	var resId = parseInt($(selectors.res.PARENT).attr(selectors.res.RESPONSE_ID), 10);
+
+	if (!(resId > 0)) return;
 
 	$(selectors.res.INNER).remove();
 
