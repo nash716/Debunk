@@ -14,12 +14,12 @@
 			<div class="control-group">
 				<label class="control-label" for="port">ポート</label>
 				<div class="controls">
-					<input type="text" id="input-port">
+					<input type="text" id="input-port" pattern="^[0-9]{1,}$">
 				</div>
 			</div>
 			<div class="form-actions">
-				<button type="submit" class="btn btn-primary">保存</button>
-				<button type="button" class="btn">キャンセル</button>
+				<button type="submit" class="btn btn-primary" id="save">保存</button>
+				<button type="button" class="btn" id="cancel">キャンセル</button>
 			</div>
 		</form>
 	</body>
