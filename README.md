@@ -2,7 +2,7 @@
 
 # Debunk
 
-[English](README.en.md)
+[English](https://github.com/nash716/Debunk/blob/master/README.en.md)
 
 ## なにこれ
 Fiddler ライクな（感じを目指している） HTTP Debugging Proxy です。  
