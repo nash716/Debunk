@@ -1,7 +1,8 @@
 onload = main;
 
 var confKey = {
-	port: '#input-port'
+	port: '#input-port',
+	list: '#input-list'
 };
 
 function main() {

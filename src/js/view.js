@@ -1,4 +1,5 @@
 var selectors = require('./selectors'),
+	utils = require('./utils'),
 	ProxyStatus = require('./ProxyStatus'),
 	Procedure = require('./Procedure');
 
@@ -32,7 +33,7 @@ function createElement(reqId, parsedURL) {
 	$('<div>')
 		.attr(selectors.req.ID, reqId)
 		.addClass('item')
-		.text(parsedURL.pathname)
+		.html(listContent(parsedURL))
 		.click(listClicked)
 		.appendTo($('#list'));
 }
@@ -40,6 +41,40 @@ function createElement(reqId, parsedURL) {
 function relate(reqId, resId) {
 	$('div[' + selectors.req.ID + '="' + reqId + '"]')
 		.attr(selectors.res.ID, resId);
+}
+
+function listContent(parsedURL) {
+	var config = utils.config('list');
+
+	config = config.replace(/%P/g, parsedURL.protocol);
+	config = config.replace(/%p/g, parsedURL.port || '');
+	config = config.replace(/%(-?\d*)h/g, repl(parsedURL.hostname));
+	config = config.replace(/%(-?\d*)H/g, repl(parsedURL.host));
+	config = config.replace(/%(-?\d*)f/g, repl(parsedURL.pathname));
+	config = config.replace(/%(-?\d*)F/g, repl(parsedURL.path));
+	config = config.replace(/%(-?\d*)q/g, repl(parsedURL.search));
+	config = config.replace(/%(-?\d*)A/g, repl(parsedURL.href));
+
+	return config;
+}
+
+function repl(str) {
+	return function(all, sub) {
+		if (!str || !sub || sub.length == 0) return str;
+
+		var len = parseInt(sub),
+			ret;
+
+		if (len >= str.length) return str;
+
+		if (len < 0) {
+			ret = '…' + str.substr(str.length + len);
+		} else {
+			ret = str.substr(0, len) + '…';
+		}
+
+		return ret;
+	}
 }
 
 module.exports = exports = {

@@ -22,6 +22,11 @@ var defaults = {
 			afterResponses: false
 		},
 		user: false
+	},
+	list: {
+		type: 'string',
+		value: '%50f<br /><span style="color: gray; font-size: small;">Host: %H</span>',
+		user: true
 	}
 };
 
