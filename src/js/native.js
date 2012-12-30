@@ -84,8 +84,10 @@ var native = function() {
 		parent.append(settings);
 
 		function settingsClicked() {
-			gui.Window.open('./settings/index.html', {
-				resizable: false
+			gui.Window.open('/settings/index.html', {
+				resizable: false,
+				width: 700,
+				height: 450
 			});
 		}
 
