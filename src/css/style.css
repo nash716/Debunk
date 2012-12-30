@@ -3,6 +3,7 @@ html {
 }
 body {
   font-size: 9pt;
+  word-break: break-all;
   -webkit-user-select: none;
 }
 #list {
@@ -11,6 +12,9 @@ body {
 #list > .item:hover {
   background-color: #0072c6;
   color: white;
+}
+#list > .item:hover * {
+  color: white !important;
 }
 #fields {
   overflow-y: auto;

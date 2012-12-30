@@ -9,6 +9,7 @@ html {
 
 body {
 	font-size: 9pt;
+	word-break: break-all;
 	-webkit-user-select: none;
 }
 
@@ -19,6 +20,9 @@ body {
 		&:hover {
 			background-color: @main-blue;
 			color: white;
+			* {
+				color: white !important;
+			}
 		}
 	}
 }
