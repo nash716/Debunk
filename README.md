@@ -2,6 +2,8 @@
 
 # Debunk
 
+[English](README.en.md)
+
 ## なにこれ
 Fiddler ライクな（感じを目指している） HTTP Debugging Proxy です。  
 `node-webkit` を用い、クロスプラットフォームに対応します。  
