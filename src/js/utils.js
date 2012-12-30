@@ -44,6 +44,9 @@ var saveConfig = function(key, value) {
 	case 'object':
 		value = JSON.stringify(value);
 		break;
+	case 'string':
+		value = value.toString();
+		break;
 	default:
 		break;
 	}
@@ -65,6 +68,8 @@ var getConfig = function(key) {
 		case 'object':
 			val = JSON.parse(val);
 			break;
+		case 'string':
+			val = val.toString();
 		default:
 			break;
 		}
