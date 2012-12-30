@@ -10,6 +10,8 @@ function main() {
 
 	mainWin = require('nw.gui').Window.get();
 
+	var finalize = require('./js/finalize');
+
 	require('./js/startup')();
 	require('./js/view').init();
 	require('./js/proxy')();
@@ -18,7 +20,7 @@ function main() {
 	resize();
 
 	mainWin.on('close', function() {
-		require('./js/finalize')();
+		finalize();
 		this.close(true);
 	});
 }
