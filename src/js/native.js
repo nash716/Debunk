@@ -6,17 +6,19 @@ MenuBar
 			-After Responses
 		+Customize Rules
 			-...
-
+	+Tools
+		-Settings
 */
 
 var utils = require('./js/utils');
-// まだハリボテ
+
 var native = function() {
 	var gui = require('nw.gui');
 
 	var menubar = new gui.Menu({ type: 'menubar' });
 
-	var ruleMenu = new gui.Menu();
+	var ruleMenu = new gui.Menu(),
+		toolMenu = new gui.Menu();
 
 	(function generateRuleMenu(parent) {
 		var basicRules = new gui.Menu(),
@@ -73,9 +75,30 @@ var native = function() {
 
 	})(ruleMenu);
 
+	(function generateToolMenu(parent) {
+		var settings = new gui.MenuItem({ // [TODO] 既にウインドウを開いているときはそちらをアクティブに
+			label: 'Settings',
+			click: settingsClicked
+		});
+
+		parent.append(settings);
+
+		function settingsClicked() {
+			gui.Window.open('./settings/index.html', {
+				resizable: false
+			});
+		}
+
+	})(toolMenu);
+
 	menubar.append(new gui.MenuItem({
 		label: 'Rules',
 		submenu: ruleMenu
+	}));
+
+	menubar.append(new gui.MenuItem({
+		label: 'Tools',
+		submenu: toolMenu
 	}));
 
 	mainWin.menu = menubar;

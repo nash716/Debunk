@@ -1,0 +1,5 @@
+onload = main;
+
+function main() {
+
+}
