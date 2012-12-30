@@ -12,14 +12,16 @@ var storage = function(key, value) {
 var defaults = {
 	port: {
 		type: 'number',
-		value: 8888
+		value: 8888,
+		user: true
 	},
 	basicRule: {
 		type: 'object',
 		value: {
 			beforeRequests: false,
 			afterResponses: false
-		}
+		},
+		user: false
 	}
 };
 
@@ -73,6 +75,17 @@ var getConfig = function(key) {
 	return val;
 };
 
+var getAllConfig = function() {
+	var ret = { };
+
+	for (var key in defaults) {
+		ret[key] = defaults[key];
+		ret[key].value = getConfig(key);
+	}
+
+	return ret;
+}
+
 var err = function(str) {
 	return function(err) {
 		if (err) {
@@ -114,6 +127,7 @@ var apply = function(_this, _function) {
 module.exports = exports = {
 	storage: storage,
 	config: config,
+	getAll: getAllConfig,
 	err: err,
 	rmdir: rmdir,
 	noerr: noerr,
