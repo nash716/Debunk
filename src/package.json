@@ -2,10 +2,10 @@
 	"name": "Debunk",
 	"main": "index.html",
 	"window": {
-		"toolbar": false,
+		"toolbar": true,
 		"width": 980,
-    	"height": 500,
-    	"min_width": 980,
-    	"min_height": 500
+		"height": 500,
+		"min_width": 980,
+		"min_height": 500
 	}
 }
