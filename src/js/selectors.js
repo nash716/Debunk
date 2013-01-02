@@ -8,7 +8,11 @@ module.exports = exports = {
 		PARENT: '#request',
 		ID: 'data-req-id',
 		DISPLAY_TYPE: '#reqView',
-		INNER: '#req-inner'
+		INNER: '#req-inner',
+		OPEN_SELECT: '#req-open',
+		METHOD: '#req-method',
+		URL: '#req-url',
+		HTTP_VERSION: '#req-http-version'
 	},
 	res: {
 		BUTTONS: '#resProxy',
@@ -19,6 +23,9 @@ module.exports = exports = {
 		PARENT: '#response',
 		ID: 'data-res-id',
 		DISPLAY_TYPE: '#resView',
-		INNER: '#res-inner'
+		INNER: '#res-inner',
+		OPEN_SELECT: '#res-open',
+		STATUS_CODE: '#res-status-code',
+		HTTP_VERSION: '#res-http-version'
 	}
 };

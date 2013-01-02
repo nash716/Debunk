@@ -1,5 +1,6 @@
 var selectors = require('./selectors'),
 	utils = require('./utils'),
+	displayObjects = require('./displayObjects'),
 	ProxyStatus = require('./ProxyStatus'),
 	Procedure = require('./Procedure');
 
@@ -43,6 +44,11 @@ function relate(reqId, resId) {
 		.attr(selectors.res.ID, resId);
 }
 
+function createOpenButton(type) {
+	$(selectors[type].BODY).remove();
+	$(selectors[type].INNER).append(displayObjects[type].openButton.clone());
+}
+
 function listContent(parsedURL) {
 	var config = utils.config('list');
 
@@ -80,5 +86,6 @@ function repl(str) {
 module.exports = exports = {
 	createElement: createElement,
 	relate: relate,
+	createOpenButton: createOpenButton,
 	init: init
 };
