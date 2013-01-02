@@ -66,9 +66,9 @@ function listContent(parsedURL) {
 
 function repl(str) {
 	return function(all, sub) {
-		if (!str || !sub || sub.length == 0) return str;
+		if (!str || !sub || sub.length === 0) return str;
 
-		var len = parseInt(sub),
+		var len = parseInt(sub, 10),
 			ret;
 
 		if (len >= str.length) return str;
@@ -80,7 +80,7 @@ function repl(str) {
 		}
 
 		return ret;
-	}
+	};
 }
 
 module.exports = exports = {

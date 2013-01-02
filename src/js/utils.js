@@ -118,7 +118,7 @@ var getAllConfig = function() {
 	}
 
 	return ret;
-}
+};
 
 var err = function(str) {
 	return function(err) {

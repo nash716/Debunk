@@ -209,7 +209,7 @@ var Procedure = function(type) {
 		if (obj.statusCode == '304') return false;
 // [TODO] もっと厳密にやる
 		// RFC 2616 14.13, 3.6
-		text = obj.headers['Content-Coding'] || (parseInt(obj.headers['Content-Length']) < utils.config('contentLength'));
+		text = obj.headers['Content-Coding'] || (parseInt(obj.headers['Content-Length'], 10) < utils.config('contentLength'));
 		text = text && (obj.headers['Content-Type'].indexOf('text/') === 0);
 
 		return !text;
