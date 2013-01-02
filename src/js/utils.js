@@ -15,6 +15,16 @@ var defaults = {
 		value: 8888,
 		user: true
 	},
+	reqDisplay: {
+		type: 'string',
+		value: 'raw',
+		user: false
+	},
+	resDisplay: {
+		type: 'string',
+		value: 'raw',
+		user: false
+	},
 	basicRule: {
 		type: 'object',
 		value: {

@@ -101,13 +101,16 @@ var Procedure = function(type) {
 	}
 
 	function display() {
-		var id = parseInt($(selectors[type].PARENT).attr(selectors[type].ID), 10);
+		var id = parseInt($(selectors[type].PARENT).attr(selectors[type].ID), 10),
+			value = $(selectors[type].DISPLAY_TYPE).val();
+
+		utils.config(type + 'Display', value);
 
 		if (!(id > 0)) return;
 
 		$(selectors[type].INNER).remove();
 
-		switch($(selectors[type].DISPLAY_TYPE).val()) {
+		switch(value) {
 		case 'raw':
 			$(selectors[type].PARENT).append(displayObjects[type].raw.clone());
 			store[type](id, null, rawHeader);

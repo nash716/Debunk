@@ -13,8 +13,12 @@ function init() {
 	$(selectors.req.DROP).click(req.drop);
 	$(selectors.res.DROP).click(res.drop);
 
-	$(selectors.req.DISPLAY_TYPE).change(req.display);
-	$(selectors.res.DISPLAY_TYPE).change(res.display);
+	$(selectors.req.DISPLAY_TYPE)
+		.change(req.display)
+		.val(utils.config('reqDisplay'));
+	$(selectors.res.DISPLAY_TYPE)
+		.change(res.display)
+		.val(utils.config('resDisplay'));
 }
 
 function listClicked() {
