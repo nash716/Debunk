@@ -27,6 +27,21 @@ var defaults = {
 		type: 'string',
 		value: '%50f<br /><span style="color: gray; font-size: small;">Host: %H</span>',
 		user: true
+	},
+	contentLength: {
+		type: 'number',
+		value: 1024,
+		user: true
+	},
+	editors: {
+		type: 'array',
+		value: [
+			{
+				name: '既定',
+				value: 'default' // 仮
+			}
+		],
+		user: true
 	}
 };
 
@@ -52,6 +67,11 @@ var saveConfig = function(key, value) {
 	case 'string':
 		value = value.toString();
 		break;
+	case 'array':
+		value = JSON.stringify({
+			array: value
+		});
+		break;
 	default:
 		break;
 	}
@@ -75,6 +95,10 @@ var getConfig = function(key) {
 			break;
 		case 'string':
 			val = val.toString();
+			break;
+		case 'array':
+			val = JSON.parse(val).array;
+			break;
 		default:
 			break;
 		}
