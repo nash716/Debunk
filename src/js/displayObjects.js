@@ -26,17 +26,6 @@ function createTable(title1, title2) {
 	return table;
 }
 
-function openOptions() {
-	var editors = utils.config('editors'),
-		ret = [ ];
-
-	for (var i=0; i<editors.length; i++) {
-		ret.push($('<option>').text(editors[i].name).val(editors[i].value));
-	}
-
-	return ret;
-}
-
 module.exports = exports = {
 	req: {
 		raw: $('<div>').attr('id', selectors.req.INNER.substr(1)) // '#hoge' を 'hoge' に
@@ -58,7 +47,6 @@ module.exports = exports = {
 			.append($('<br />'))
 			.append(
 				$('<select>').attr('id', selectors.req.OPEN_SELECT)
-					.append(openOptions())
 			),
 		addHeaderButton: $('<tr>').append(
 			$('<td>')
@@ -92,7 +80,6 @@ module.exports = exports = {
 			.append($('<br />'))
 			.append(
 				$('<select>').attr('id', selectors.res.OPEN_SELECT)
-					.append(openOptions())
 			),
 		addHeaderButton: $('<tr>').attr('id', selectors.res.ADD_HEADER.substr(1))
 			.append(

@@ -51,9 +51,24 @@ function relate(reqId, resId) {
 		.attr(selectors.res.ID, resId);
 }
 
+function openOptions() {
+	var editors = utils.config('editors'),
+		ret = [ ];
+
+	for (var i=0; i<editors.length; i++) {
+		ret.push($('<option>').text(editors[i].name).val(editors[i].value));
+	}
+
+	return ret;
+}
+
 function createOpenButton(type) {
+	var button = displayObjects[type].openButton.clone();
+
+	button.children('select').append(openOptions());
+
 	$(selectors[type].BODY).remove();
-	$(selectors[type].INNER).append(displayObjects[type].openButton.clone());
+	$(selectors[type].INNER).append(button);
 }
 
 function listContent(parsedURL) {
