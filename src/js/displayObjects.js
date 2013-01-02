@@ -1,5 +1,6 @@
 var selectors = require('./selectors'),
-	utils = require('./utils');
+	utils = require('./utils'),
+	view = require('./view');
 
 function createTable(title1, title2) {
 	var table = $('<table>').addClass('table table-condensed');
@@ -58,7 +59,18 @@ module.exports = exports = {
 			.append(
 				$('<select>').attr('id', selectors.req.OPEN_SELECT)
 					.append(openOptions())
-			)
+			),
+		addHeaderButton: $('<tr>').append(
+			$('<td>')
+				.attr('colspan', '2')
+				.css('text-align', 'center')
+				.append(
+					$('<button>')
+						.addClass('btn')
+						.attr('id', selectors.req.ADD_HEADER.substr(1))
+						.text('+')
+				)
+		)
 	},
 	res: {
 		raw: $('<div>').attr('id', selectors.res.INNER.substr(1))
@@ -81,6 +93,18 @@ module.exports = exports = {
 			.append(
 				$('<select>').attr('id', selectors.res.OPEN_SELECT)
 					.append(openOptions())
+			),
+		addHeaderButton: $('<tr>').attr('id', selectors.res.ADD_HEADER.substr(1))
+			.append(
+				$('<td>')
+					.attr('colspan', '2')
+					.css('text-align', 'center')
+					.append(
+						$('<button>')
+							.addClass('btn')
+							.text('+')
+							.click(view.addHeader)
+					)
 			)
 	}
 };

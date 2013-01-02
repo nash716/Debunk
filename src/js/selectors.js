@@ -12,7 +12,8 @@ module.exports = exports = {
 		OPEN_SELECT: '#req-open',
 		METHOD: '#req-method',
 		URL: '#req-url',
-		HTTP_VERSION: '#req-http-version'
+		HTTP_VERSION: '#req-http-version',
+		ADD_HEADER: '#req-add-header'
 	},
 	res: {
 		BUTTONS: '#resProxy',
@@ -26,6 +27,7 @@ module.exports = exports = {
 		INNER: '#res-inner',
 		OPEN_SELECT: '#res-open',
 		STATUS_CODE: '#res-status-code',
-		HTTP_VERSION: '#res-http-version'
+		HTTP_VERSION: '#res-http-version',
+		ADD_HEADER: '#res-add-header'
 	}
 };

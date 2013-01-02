@@ -69,20 +69,40 @@ var Procedure = function(type) {
 
 		var obj = JSON.parse(data);
 
-		switch (type) {
-		case 'req':
-			tbody.append(createTableRow('Method', obj.method, selectors.req.METHOD.substr(1)));
-			tbody.append(createTableRow('URL', obj.url, selectors.req.URL.substr(1)));
-			tbody.append(createTableRow('HTTP Version', obj.httpVersion, selectors.req.HTTP_VERSION.substr(1)));
-			break;
-		case 'res':
-			tbody.append(createTableRow('Status Code', obj.statusCode, selectors.res.STATUS_CODE.substr(1)));
-			tbody.append(createTableRow('HTTP Version', obj.httpVersion, selectors.res.HTTP_VERSION.substr(1)));
-			break;
-		}
+		if (proxyObjects[type][id].status === ProxyStatus.WAITING) {
+			switch (type) {
+			case 'req':
+				tbody.append(createTableRow('Method', obj.method, selectors.req.METHOD.substr(1), true));
+				tbody.append(createTableRow('URL', obj.url, selectors.req.URL.substr(1), true));
+				tbody.append(createTableRow('HTTP Version', obj.httpVersion, selectors.req.HTTP_VERSION.substr(1), true));
+				break;
+			case 'res':
+				tbody.append(createTableRow('Status Code', obj.statusCode, selectors.res.STATUS_CODE.substr(1), true));
+				tbody.append(createTableRow('HTTP Version', obj.httpVersion, selectors.res.HTTP_VERSION.substr(1), true));
+				break;
+			}
 
-		for (var key in obj.headers) {
-			tbody.append(createTableRow(key, obj.headers[key]));
+			for (var key in obj.headers) {
+				tbody.append(createTableRow(key, obj.headers[key], false, true));
+			}
+
+			tbody.append(displayObjects[type].addHeaderButton);
+		} else {
+			switch (type) {
+			case 'req':
+				tbody.append(createTableRow('Method', obj.method, selectors.req.METHOD.substr(1)));
+				tbody.append(createTableRow('URL', obj.url, selectors.req.URL.substr(1)));
+				tbody.append(createTableRow('HTTP Version', obj.httpVersion, selectors.req.HTTP_VERSION.substr(1)));
+				break;
+			case 'res':
+				tbody.append(createTableRow('Status Code', obj.statusCode, selectors.res.STATUS_CODE.substr(1)));
+				tbody.append(createTableRow('HTTP Version', obj.httpVersion, selectors.res.HTTP_VERSION.substr(1)));
+				break;
+			}
+
+			for (var key in obj.headers) {
+				tbody.append(createTableRow(key, obj.headers[key]));
+			}
 		}
 
 		determineFileType(id, obj);
@@ -122,11 +142,37 @@ var Procedure = function(type) {
 		}
 	}
 
-	function createTableRow(key, value, id) {
+	function createTableRow(key, value, id, textBox) {
 		var tr = $('<tr>');
 
-		var td1 = $('<td>').text(key).css('white-space', 'nowrap'),
-			td2 = $('<td>').text(value);
+		var td1 = $('<td>'),
+			td2 = $('<td>');
+
+		if (textBox) {
+			if (!id) {
+				td1.append(
+					$('<input>')
+						.attr('type', 'text')
+						.val(key)
+						.css('height', '16px')
+				);
+			} else {
+				td1.text(key)
+					.css('white-space', 'nowrap');
+			}
+
+			td2.append(
+				$('<input>')
+					.attr('type', 'text')
+					.val(value)
+					.css('height', '16px')
+			);
+		} else {
+			td1.text(key)
+				.css('white-space', 'nowrap');
+
+			td2.text(value);
+		}
 
 		if (id) td2.attr('id', id);
 
@@ -179,20 +225,25 @@ var Procedure = function(type) {
 
 		switch (type) {
 		case 'req':
-			obj.method = $(selectors[type].METHOD).text();
-			obj.url = $(selectors[type].URL).text();
-			obj.httpVersion = $(selectors[type].HTTP_VERSION).text();
+			obj.method = $(selectors[type].METHOD).children('input').val();
+			obj.url = $(selectors[type].URL).children('input').val();
+			obj.httpVersion = $(selectors[type].HTTP_VERSION).children('input').val();
 			break;
 		case 'res':
-			obj.httpVersion = $(selectors[type].HTTP_VERSION).text();
-			obj.statusCode = $(selectors[type].STATUS_CODE).text();
+			obj.httpVersion = $(selectors[type].HTTP_VERSION).children('input').val();
+			obj.statusCode = $(selectors[type].STATUS_CODE).children('input').val();
 			break;
 		}
 
 		table.children('tbody').children('tr').each(function() {
-			if ($($(this).children('td')[1]).attr('id')) return;
+			if ($($(this).children('td')[1]).attr('id') || $(this).children('td').length < 2) return;
 
-			obj.headers[$($(this).children('td')[0]).text()] = $($(this).children('td')[1]).text();
+			var key = $($(this).children('td')[0]).children('input').val(),
+				value = $($(this).children('td')[1]).children('input').val();
+
+			if (key.length === 0) return;
+
+			obj.headers[key] = value;
 		});
 
 		return JSON.stringify(obj);

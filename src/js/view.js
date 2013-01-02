@@ -19,6 +19,9 @@ function init() {
 	$(selectors.res.DISPLAY_TYPE)
 		.change(res.display)
 		.val(utils.config('resDisplay'));
+
+	$(selectors.req.ADD_HEADER).live('click', addHeader);
+	$(selectors.res.ADD_HEADER).live('click', addHeader);
 }
 
 function listClicked() {
@@ -87,9 +90,32 @@ function repl(str) {
 	};
 }
 
+function addHeader() {
+	var tr = $('<tr>');
+
+	var td1 = $('<td>'),
+		td2 = $('<td>');
+
+	td1.append(
+		$('<input>')
+			.attr('type', 'text')
+	);
+
+	td2.append(
+		$('<input>')
+			.attr('type', 'text')
+	);
+
+	tr.append(td1)
+		.append(td2);
+
+	$('#req-add-header').parent().parent().before(tr);
+}
+
 module.exports = exports = {
 	createElement: createElement,
 	relate: relate,
 	createOpenButton: createOpenButton,
-	init: init
+	init: init,
+	addHeader: addHeader
 };
