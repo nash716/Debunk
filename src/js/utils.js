@@ -30,7 +30,7 @@ var defaults = {
 	},
 	contentLength: {
 		type: 'number',
-		value: 1024,
+		value: 1024 * 1024,
 		user: true
 	},
 	editors: {
