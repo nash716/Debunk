@@ -5,3 +5,5 @@ node-webkit.app
 .DS_Store
 src/req/
 src/res/
+src/onRequest/
+src/onResponse/
