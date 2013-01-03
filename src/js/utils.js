@@ -168,6 +168,18 @@ var apply = function(_this, _function) {
 	};
 };
 
+var merge = function() {
+	var l = arguments.length;
+	var ret = { };
+	
+	for (var i=0; i<l; i++) {
+		for (var key in arguments[i]) {
+			ret[key] = arguments[i][key];
+		}
+	}
+	return ret;
+};
+
 module.exports = exports = {
 	storage: storage,
 	config: config,
@@ -176,5 +188,6 @@ module.exports = exports = {
 	rmdir: rmdir,
 	noerr: noerr,
 	apply: apply,
-	empty: function() { }
+	empty: function() { },
+	merge: merge
 };
