@@ -56,6 +56,17 @@ FileManager.pipeWrite = function(path, source, destination, callback) {
 	}
 };
 
+FileManager.syncRead = function(path) {
+	if (!this.files[path]) this.newFile(path);
+
+	this.open(path);
+
+	var ret = fs.readFileSync(path);
+
+	this.close(path);
+
+	return ret;
+};
 
 FileManager.newFile = function(path) {
 	this.files[path] = {
