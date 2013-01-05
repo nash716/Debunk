@@ -95,7 +95,7 @@ module.exports = exports = {
 					.attr('data-type', 'res')
 					.attr('id', selectors.res.OPEN_BUTTON.substr(1))
 			),
-		addHeaderButton: $('<tr>').attr('id', selectors.res.ADD_HEADER.substr(1))
+		addHeaderButton: $('<tr>')
 			.append(
 				$('<td>')
 					.attr('colspan', '2')
@@ -103,6 +103,7 @@ module.exports = exports = {
 					.append(
 						$('<button>')
 							.addClass('btn')
+							.attr('id', selectors.res.ADD_HEADER.substr(1))
 							.text('+')
 					)
 			)
