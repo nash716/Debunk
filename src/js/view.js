@@ -118,11 +118,13 @@ function addHeader() {
 	td1.append(
 		$('<input>')
 			.attr('type', 'text')
+			.css('height', '16px')
 	);
 
 	td2.append(
 		$('<input>')
 			.attr('type', 'text')
+			.css('height', '16px')
 	);
 
 	tr.append(td1)
