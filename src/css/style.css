@@ -6,6 +6,9 @@ body {
   word-break: break-all;
   -webkit-user-select: none;
 }
+select:focus {
+  outline: none;
+}
 #list {
   overflow-y: auto;
 }

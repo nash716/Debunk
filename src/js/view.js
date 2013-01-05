@@ -69,7 +69,7 @@ function openOptions() {
 function createOpenButton(type) {
 	var button = displayObjects[type].openButton.clone();
 
-	button.children('select').append(openOptions());
+	button.children().children('select').append(openOptions());
 
 	$(selectors[type].BODY).remove();
 	$(selectors[type].INNER).append(button);
@@ -146,6 +146,8 @@ function openBinary() {
 		var command = val.replace(/%f/g, filename);
 		utils.exec(command);
 	}
+
+	return false;
 }
 
 module.exports = exports = {

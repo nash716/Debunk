@@ -45,15 +45,19 @@ module.exports = exports = {
 		openButton: $('<div>').attr('id', selectors.req.BODY.substr(1))
 			.append('<span>').text('バイナリファイルのようです。どうしますか？')
 			.append($('<br />'))
-			.append(
-				$('<select>').attr('id', selectors.req.OPEN_SELECT.substr(1))
-			)
-			.append(
-				$('<button>')
-					.addClass('btn')
-					.text('開く')
-					.attr('data-type', 'req')
-					.attr('id', selectors.req.OPEN_BUTTON.substr(1))
+			.append($('<form>')
+				.addClass('form-inline')
+				.append(
+					$('<select>').attr('id', selectors.req.OPEN_SELECT.substr(1))
+				)
+				.append(
+					$('<button>')
+						.addClass('btn')
+						.text('開く')
+						.css('margin-left', '10px')
+						.attr('data-type', 'req')
+						.attr('id', selectors.req.OPEN_BUTTON.substr(1))
+				)
 			),
 		addHeaderButton: $('<tr>').append(
 			$('<td>')
@@ -85,15 +89,19 @@ module.exports = exports = {
 		openButton: $('<div>').attr('id', selectors.req.BODY.substr(1))
 			.append('<span>').text('バイナリファイルのようです。どうしますか？')
 			.append($('<br />'))
-			.append(
-				$('<select>').attr('id', selectors.res.OPEN_SELECT.substr(1))
-			)
-			.append(
-				$('<button>')
-					.addClass('btn')
-					.text('開く')
-					.attr('data-type', 'res')
-					.attr('id', selectors.res.OPEN_BUTTON.substr(1))
+			.append($('<form>')
+				.addClass('form-inline')
+				.append(
+					$('<select>').attr('id', selectors.res.OPEN_SELECT.substr(1))
+				)
+				.append(
+					$('<button>')
+						.addClass('btn')
+						.text('開く')
+						.css('margin-left', '10px')
+						.attr('data-type', 'res')
+						.attr('id', selectors.res.OPEN_BUTTON.substr(1))
+				)
 			),
 		addHeaderButton: $('<tr>')
 			.append(
