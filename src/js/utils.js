@@ -1,5 +1,6 @@
 var fs = require('fs'),
-	path = require('path');
+	path = require('path'),
+	child_process = require('child_process');
 
 var storage = function(key, value) {
 	if (value) {
@@ -180,6 +181,10 @@ var merge = function() {
 	return ret;
 };
 
+var exec = function(command) {
+	child_process.exec(command);
+};
+
 module.exports = exports = {
 	storage: storage,
 	config: config,
@@ -189,5 +194,6 @@ module.exports = exports = {
 	noerr: noerr,
 	apply: apply,
 	empty: function() { },
-	merge: merge
+	merge: merge,
+	exec: exec
 };

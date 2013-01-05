@@ -2,7 +2,8 @@ var selectors = require('./selectors'),
 	utils = require('./utils'),
 	displayObjects = require('./displayObjects'),
 	ProxyStatus = require('./ProxyStatus'),
-	Procedure = require('./Procedure');
+	Procedure = require('./Procedure'),
+	path = require('path');
 
 var req = new Procedure('req'),
 	res = new Procedure('res');
@@ -22,6 +23,9 @@ function init() {
 
 	$(selectors.req.ADD_HEADER).live('click', addHeader);
 	$(selectors.res.ADD_HEADER).live('click', addHeader);
+
+	$(selectors.req.OPEN_BUTTON).live('click', openBinary);
+	$(selectors.res.OPEN_BUTTON).live('click', openBinary);
 }
 
 function listClicked() {
@@ -124,13 +128,27 @@ function addHeader() {
 	tr.append(td1)
 		.append(td2);
 
-	$('#req-add-header').parent().parent().before(tr);
+	$(this).parent().parent().before(tr);
+}
+
+function openBinary() {
+	var type = $(this).attr('data-type'),
+		filename = path.join(type, type + $(selectors[type].PARENT).attr(selectors[type].ID)),
+		val = $(selectors[type].OPEN_SELECT).val();
+
+	filename = path.normalize(path.resolve(filename));
+
+	if (val == 'default') {
+		window.openInDefault(filename);
+	} else {
+		var command = val.replace(/%f/g, filename);
+		utils.exec(command);
+	}
 }
 
 module.exports = exports = {
 	createElement: createElement,
 	relate: relate,
 	createOpenButton: createOpenButton,
-	init: init,
-	addHeader: addHeader
+	init: init
 };

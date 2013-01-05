@@ -13,7 +13,8 @@ module.exports = exports = {
 		METHOD: '#req-method',
 		URL: '#req-url',
 		HTTP_VERSION: '#req-http-version',
-		ADD_HEADER: '#req-add-header'
+		ADD_HEADER: '#req-add-header',
+		OPEN_BUTTON: '#req-open-button'
 	},
 	res: {
 		BUTTONS: '#resProxy',
@@ -28,6 +29,7 @@ module.exports = exports = {
 		OPEN_SELECT: '#res-open',
 		STATUS_CODE: '#res-status-code',
 		HTTP_VERSION: '#res-http-version',
-		ADD_HEADER: '#res-add-header'
+		ADD_HEADER: '#res-add-header',
+		OPEN_BUTTON: '#res-open-button'
 	}
 };

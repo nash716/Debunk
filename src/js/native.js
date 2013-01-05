@@ -105,3 +105,9 @@ var native = function() {
 
 	mainWin.menu = menubar;
 };
+
+var openInDefault = function(path) {
+	var gui = require('nw.gui');
+
+	gui.Shell.openItem(path);
+};

@@ -46,7 +46,14 @@ module.exports = exports = {
 			.append('<span>').text('バイナリファイルのようです。どうしますか？')
 			.append($('<br />'))
 			.append(
-				$('<select>').attr('id', selectors.req.OPEN_SELECT)
+				$('<select>').attr('id', selectors.req.OPEN_SELECT.substr(1))
+			)
+			.append(
+				$('<button>')
+					.addClass('btn')
+					.text('開く')
+					.attr('data-type', 'req')
+					.attr('id', selectors.req.OPEN_BUTTON.substr(1))
 			),
 		addHeaderButton: $('<tr>').append(
 			$('<td>')
@@ -79,7 +86,14 @@ module.exports = exports = {
 			.append('<span>').text('バイナリファイルのようです。どうしますか？')
 			.append($('<br />'))
 			.append(
-				$('<select>').attr('id', selectors.res.OPEN_SELECT)
+				$('<select>').attr('id', selectors.res.OPEN_SELECT.substr(1))
+			)
+			.append(
+				$('<button>')
+					.addClass('btn')
+					.text('開く')
+					.attr('data-type', 'res')
+					.attr('id', selectors.res.OPEN_BUTTON.substr(1))
 			),
 		addHeaderButton: $('<tr>').attr('id', selectors.res.ADD_HEADER.substr(1))
 			.append(
@@ -90,7 +104,6 @@ module.exports = exports = {
 						$('<button>')
 							.addClass('btn')
 							.text('+')
-							.click(view.addHeader)
 					)
 			)
 	}
