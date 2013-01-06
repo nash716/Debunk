@@ -3,7 +3,9 @@ var store = require('./store'),
 	utils = require('./utils'),
 	ProxyStatus = require('./ProxyStatus'),
 	selectors = require('./selectors'),
-	displayObjects = require('./displayObjects');
+	displayObjects = require('./displayObjects'),
+	isText = require('./EncodingDetector/is_text'),
+	FileManager = require('./FileManager');
 
 var Procedure = function(type) {
 	function pass() {
@@ -58,7 +60,7 @@ var Procedure = function(type) {
 
 		$(selectors[type].HEADERS).val(headerStr);
 
-		determineFileType(id, obj);
+		determineFileType(id);
 
 		this.toJSON = rawToJSON;
 	}
@@ -105,7 +107,7 @@ var Procedure = function(type) {
 			}
 		}
 
-		determineFileType(id, obj);
+		determineFileType(id);
 
 		this.toJSON = tableToJSON;
 	}
@@ -249,24 +251,18 @@ var Procedure = function(type) {
 		return JSON.stringify(obj);
 	}
 
-	function determineFileType(id, obj) {
-		if (isBinary(obj)) {
+	function determineFileType(id) {
+		if (isBinary(id)) {
 			require('./view').createOpenButton(type);
 		} else {
 			store[type](id, rawBody, null);
 		}
 	}
 
-	function isBinary(obj) {
-		var text;
+	function isBinary(id) {
+		var buffer = FileManager.byteRead(type + '/' + type + id, 0, 100, 0);
 
-		if (obj.statusCode == '304') return false;
-// [TODO] もっと厳密にやる
-		// RFC 2616 14.13, 3.6
-		text = obj.headers['Content-Encoding'] || (parseInt(obj.headers['Content-Length'], 10) < utils.config('contentLength'));
-		text = text && (obj.headers['Content-Type'].indexOf('text/') === 0);
-
-		return !text;
+		return !isText(buffer);
 	}
 
 	this.pass = pass;
