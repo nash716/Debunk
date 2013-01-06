@@ -1,4 +1,4 @@
 module.exports = exports = {
-	onRequest: [ 'request' ],
+	onRequest: [ 'headers', 'body' ],
 	onResponse: [ 'response' ]
 };
