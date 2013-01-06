@@ -1,4 +1,4 @@
-function isAsciiText(buffer) {
+module.exports = exports = function(buffer) {
 	for(var i = 0; i < buffer.length; ++i) {
 		if(buffer[i] != 0x09 &&
 			buffer[i] != 0x0a &&
@@ -8,5 +8,4 @@ function isAsciiText(buffer) {
 		}
 	}
 	return true;
-}
-
+};

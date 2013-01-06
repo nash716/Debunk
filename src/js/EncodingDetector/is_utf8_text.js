@@ -1,4 +1,4 @@
-function isUTF8Text(buffer) {
+module.exports = exports = function(buffer) {
 	var count = 0;//マルチバイト文字用のカウンタ
 	for(var i = 0; i < buffer.length; ++i) {
 		//ASCIIの範囲内
@@ -42,5 +42,5 @@ function isUTF8Text(buffer) {
 		return false;
 	}
 	return true;
-}
+};
 

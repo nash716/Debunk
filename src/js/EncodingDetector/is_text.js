@@ -1,12 +1,12 @@
 module.exports = exports = function(buffer) {
 	if(buffer[0] == 0x00) return false;
-	return isAsciiText(buffer) |
-		isEUCJPText(buffer) |
-		isSJISText(buffer) |
-		isISO2022JPText(buffer) |
-		isUTF8Text(buffer) |
-		isUTF16BEText(buffer) |
-		isUTF16LEText(buffer) |
-		isUTF32BEText(buffer) |
-		isUTF32LEText(buffer);
+	return require('./is_ascii_text')(buffer) |
+		require('./is_euc-jp_text')(buffer) |
+		require('./is_sjis_text')(buffer) |
+		require('./is_iso2022jp_text')(buffer) |
+		require('./is_utf8_text')(buffer) |
+		require('./is_utf16be_text')(buffer) |
+		require('./is_utf16le_text')(buffer) |
+		require('./is_utf32be_text')(buffer) |
+		require('./is_utf32le_text')(buffer);
 }

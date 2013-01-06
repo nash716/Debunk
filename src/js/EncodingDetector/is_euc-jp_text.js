@@ -1,4 +1,4 @@
-function isEUCJPText(buffer) {
+module.exports = exports = function(buffer) {
 	var count = 0;//2バイトカウント
 	for(var i = 0; i < buffer.length; ++i) {
 		//ASCIIの範囲内
@@ -33,5 +33,5 @@ function isEUCJPText(buffer) {
 		return false;
 	}
 	return true;
-}
+};
 

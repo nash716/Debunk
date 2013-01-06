@@ -1,4 +1,4 @@
-function isUTF32LEText(buffer) {
+module.exports = exports = function(buffer) {
 	for(var i = 0; i < buffer.length; ++i) {
 		switch(i % 4) {
 			case 3://1バイト目(群)
@@ -29,5 +29,5 @@ function isUTF32LEText(buffer) {
 		}
 	}
 	return true;
-}
+};
 

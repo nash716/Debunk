@@ -1,4 +1,4 @@
-function isUTF16LEText(buffer) {
+module.exports = exports = function(buffer) {
 	var surrogate_flag = false;//サロゲートペアか？
 	for(var i = 0; i < buffer.length; ++i) {
 		//2バイト目のみチェック(1バイト目は任意(0x00 to 0xff))
@@ -31,5 +31,5 @@ function isUTF16LEText(buffer) {
 		return false;
 	}
 	return true;
-}
+};
 

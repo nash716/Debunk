@@ -1,4 +1,4 @@
-function isISO2022JPText(buffer) {
+module.exports = exports = function(buffer) {
 	var count = 0;//エスケープシーケンス用のカウント
 	var esc_kind = 0;//エスケープシーケンスの2バイト目の種類
 	for(var i = 0; i < buffer.length; ++i) {
@@ -45,5 +45,5 @@ function isISO2022JPText(buffer) {
 		return false;
 	}
 	return true;
-}
+};
 

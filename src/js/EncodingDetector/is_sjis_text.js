@@ -1,4 +1,4 @@
-function isSJISText(buffer) {
+module.exports = exports = function(buffer) {
 	var count = 0;//2バイトカウント
 	for(var i = 0; i < buffer.length; ++i) {
 		//一文字目
@@ -36,5 +36,5 @@ function isSJISText(buffer) {
 		return false;
 	}
 	return true;
-}
+};
 
