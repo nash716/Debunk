@@ -68,6 +68,23 @@ FileManager.syncRead = function(path) {
 	return ret;
 };
 
+FileManager.byteRead = function(path, offset, length, position) {
+	var fd = fs.openSync(path, 'r'),
+		buffer = new Buffer(length),
+		newBuf;
+
+	var bytesRead = fs.readSync(fd, buffer, offset, length, position);
+
+	if (bytesRead < length) {
+		newBuf = new Buffer(bytesRead);
+		buffer.copy(newBuf);
+	}
+
+	fs.closeSync(fd);
+
+	return newBuf || buffer;
+};
+
 FileManager.newFile = function(path) {
 	this.files[path] = {
 		status: FileStatus.CLOSE,
